@@ -49,8 +49,9 @@ jobs:
         with:
           enablement: true
       - name: Build with Jekyll
+        if: ${{ !cancelled() }}
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path || '/LJT-Homepage' }}"
         env:
           JEKYLL_ENV: production
       - name: Upload GitHub Pages artifact
